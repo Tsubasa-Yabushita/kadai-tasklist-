@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-  
+  before_action :set_message, only: [:show, :edit, :update, :destroy]
+ 
   def index
     @tasks = Task.all
   end
@@ -49,6 +50,15 @@ class TasksController < ApplicationController
   end
   
   private
+  
+  def set_message
+    @task = Task.find(params[:id])
+  end
+
+  def message_params
+    params.require(:task).permit(:content)
+  end
+
 
   # Strong Parameter
   def task_params
